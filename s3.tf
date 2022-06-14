@@ -1,11 +1,13 @@
-module "s3_bucket" {
-  source = "terraform-aws-modules/s3-bucket/aws"
-
+resource "aws_s3_bucket" "b" {
   bucket = "muktesh705"
-  acl    = "private"
 
-  versioning = {
-    enabled = true
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
   }
+}
 
+resource "aws_s3_bucket_acl" "example" {
+  bucket = aws_s3_bucket.b.id
+  acl    = "private"
 }
